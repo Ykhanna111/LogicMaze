@@ -1,0 +1,90 @@
+Build a simple browser-based game called “Logic Maze”.
+
+Tech Stack:
+Use only HTML, CSS, and vanilla JavaScript.
+Do NOT use external libraries.
+Render the maze using HTML div grid (not canvas).
+Keep code clean and beginner-friendly.
+
+Game Concept:
+The player must reach a goal in a maze by creating a sequence of commands.
+Instead of controlling the character directly, the user builds a program using buttons.
+
+Layout:
+Left side:
+- 8x8 maze grid
+- Player character (colored square)
+- Walls
+- Goal tile (flag icon or different color)
+
+Right side:
+- Title: “Logic Maze”
+- Command buttons:
+   - Move Forward
+   - Turn Left
+   - Turn Right
+- Display area showing added commands in order
+- Run button
+- Reset button
+- Clear Commands button
+- Show "Blocks Remaining: 6"
+
+Game Rules:
+- Player starts at top-left corner.
+- Goal is at bottom-right.
+- User can only add maximum 6 commands.
+- When Run is clicked:
+    - Execute commands one by one with 500ms delay
+    - Update player position visually
+- If player hits wall → stop execution and show "Hit a wall!"
+- If player reaches goal → show "Level Complete!"
+- Reset returns player to start.
+- Clear Commands empties command list.
+
+Player Logic:
+Track:
+- x position
+- y position
+- direction (up, down, left, right)
+
+Move Forward:
+- Move based on current direction.
+Turn Left / Turn Right:
+- Change direction properly.
+
+Maze:
+Create a simple hardcoded 2D array:
+0 = empty
+1 = wall
+2 = goal
+
+Styling:
+- Dark background
+- Maze cells square and evenly spaced
+- Player = blue
+- Walls = gray
+- Goal = green
+- Commands displayed as small colored blocks
+- Clean modern UI
+
+Code Structure:
+Separate into:
+- index.html
+- style.css
+- script.js
+
+In script.js, organize into functions:
+- drawMaze()
+- renderPlayer()
+- addCommand()
+- runProgram()
+- executeCommand()
+- resetGame()
+
+Important:
+- Use async/await with a sleep function for command delay.
+- Make the game fully playable immediately when opened.
+- Keep code well-commented.
+
+Output:
+Provide full working code for all 3 files separately.
