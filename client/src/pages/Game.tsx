@@ -102,10 +102,14 @@ export default function GamePage() {
     if (status !== "WON" && status !== "LOST") {
       setIsPlaying(false);
       setStatus("IDLE");
-      toast({
-        title: "Program Ended",
-        description: "Rocket stopped. You haven't reached the goal yet.",
-      });
+      
+      // Check if they used too many blocks or just stopped short
+      if (commands.length > 0) {
+        toast({
+          title: "Program Ended",
+          description: "Execution complete, but the goal was not reached.",
+        });
+      }
     }
   };
 
