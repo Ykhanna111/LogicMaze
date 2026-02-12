@@ -12,7 +12,6 @@ import { useToast } from "@/hooks/use-toast";
 
 // Starting State
 const START_POS = { x: 0, y: 0, dir: 1 }; // 0,0 facing Right
-const MAX_COMMANDS = 6;
 
 export default function GamePage() {
   const [player, setPlayer] = useState(START_POS);
@@ -24,9 +23,8 @@ export default function GamePage() {
   const { toast } = useToast();
 
   const handleAddCommand = (cmd: CommandType) => {
-    if (commands.length < MAX_COMMANDS) {
-      setCommands([...commands, cmd]);
-    }
+    // No limit on commands
+    setCommands([...commands, cmd]);
   };
 
   const handleReset = () => {
@@ -213,7 +211,7 @@ export default function GamePage() {
               onReset={handleReset}
               onClear={handleClear}
               isPlaying={isPlaying}
-              isFull={commands.length >= MAX_COMMANDS}
+              isFull={false}
             />
           </div>
 

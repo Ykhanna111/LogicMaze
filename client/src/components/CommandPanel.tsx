@@ -32,11 +32,8 @@ export function CommandPanel({
             <Code2 className="text-primary" />
             Command Sequence
           </h2>
-          <span className={cn(
-            "text-xs font-mono px-2 py-1 rounded border",
-            isFull ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-primary/10 text-primary border-primary/20"
-          )}>
-            Blocks Remaining: {6 - commands.length}
+          <span className="text-xs font-mono px-2 py-1 rounded border bg-primary/10 text-primary border-primary/20">
+            Blocks Used: {commands.length}
           </span>
         </div>
 
