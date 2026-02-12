@@ -33,8 +33,8 @@ export default function GamePage() {
     setIsPlaying(false);
   };
 
-  const handleClear = () => {
-    setCommands([]);
+  const handleDeleteLast = () => {
+    setCommands(prev => prev.slice(0, -1));
     handleReset();
   };
 
@@ -209,7 +209,7 @@ export default function GamePage() {
               onAddCommand={handleAddCommand}
               onRun={runGame}
               onReset={handleReset}
-              onClear={handleClear}
+              onClear={handleDeleteLast}
               isPlaying={isPlaying}
               isFull={false}
             />
