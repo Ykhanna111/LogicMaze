@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import { motion, AnimatePresence } from "framer-motion";
 import { Terminal } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import { MazeGrid } from "@/components/MazeGrid";
 import { CommandPanel, type CommandType } from "@/components/CommandPanel";
