@@ -1,22 +1,23 @@
 import { motion } from "framer-motion";
-import { Flag, Rocket, Wallpaper } from "lucide-react";
+import { Flag, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { MAZE_GRID, type CellType } from "@/lib/mazeData";
+import { type CellType } from "@/lib/mazeData";
 
 interface MazeGridProps {
   playerX: number;
   playerY: number;
   playerDir: number; // 0, 1, 2, 3
+  maze: CellType[][];
 }
 
-export function MazeGrid({ playerX, playerY, playerDir }: MazeGridProps) {
+export function MazeGrid({ playerX, playerY, playerDir, maze }: MazeGridProps) {
   return (
     <div className="relative p-1 bg-card/50 rounded-xl border border-white/10 shadow-2xl backdrop-blur-sm">
       <div 
         className="grid grid-cols-8 gap-1 sm:gap-2"
         style={{ width: "min(90vw, 500px)", height: "min(90vw, 500px)" }}
       >
-        {MAZE_GRID.map((row, y) =>
+        {maze.map((row, y) =>
           row.map((cell, x) => (
             <MazeCell key={`${x}-${y}`} type={cell} x={x} y={y} />
           ))

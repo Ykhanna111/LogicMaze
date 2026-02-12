@@ -6,18 +6,23 @@ import { cn } from "@/lib/utils";
 
 import { MazeGrid } from "@/components/MazeGrid";
 import { CommandPanel, type CommandType } from "@/components/CommandPanel";
-import { MAZE_GRID, DIRECTIONS } from "@/lib/mazeData";
+import { MAZES, DIRECTIONS } from "@/lib/mazeData";
 import { useSubmitGameResult } from "@/hooks/use-game";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 // Starting State
 const START_POS = { x: 0, y: 0, dir: 1 }; // 0,0 facing Right
 
 export default function GamePage() {
+  const [level, setLevel] = useState(0);
   const [player, setPlayer] = useState(START_POS);
   const [commands, setCommands] = useState<CommandType[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [status, setStatus] = useState<"IDLE" | "RUNNING" | "WON" | "LOST">("IDLE");
+
+  const currentMaze = MAZES[level % MAZES.length];
 
   const submitResult = useSubmitGameResult();
   const { toast } = useToast();
@@ -35,6 +40,12 @@ export default function GamePage() {
 
   const handleDeleteLast = () => {
     setCommands(prev => prev.slice(0, -1));
+    handleReset();
+  };
+
+  const handleNextLevel = () => {
+    setLevel(prev => prev + 1);
+    setCommands([]);
     handleReset();
   };
 
@@ -74,7 +85,7 @@ export default function GamePage() {
         }
 
         // Check Wall
-        if (MAZE_GRID[nextY][nextX] === 1) {
+        if (currentMaze[nextY][nextX] === 1) {
           handleGameOver("CRASH! You hit a wall.");
           return;
         }
@@ -90,7 +101,7 @@ export default function GamePage() {
       await new Promise(r => setTimeout(r, 600));
 
       // Check Win
-      if (MAZE_GRID[currentY][currentX] === 2) {
+      if (currentMaze[currentY][currentX] === 2) {
         handleWin();
         return;
       }
@@ -154,7 +165,7 @@ export default function GamePage() {
                 LOGIC<span className="text-primary">MAZE</span>
               </h1>
               <p className="text-xs text-muted-foreground font-mono">
-                v1.0.4 // SYSTEM_READY
+                LEVEL {level + 1} // SYSTEM_READY
               </p>
             </div>
           </div>
@@ -178,20 +189,28 @@ export default function GamePage() {
               <MazeGrid 
                 playerX={player.x} 
                 playerY={player.y} 
-                playerDir={player.dir} 
+                playerDir={player.dir}
+                maze={currentMaze}
               />
               
               <AnimatePresence>
                 {status === "WON" && (
                   <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0 flex items-center justify-center z-20 backdrop-blur-[2px]"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="absolute inset-0 flex flex-col items-center justify-center z-20 backdrop-blur-md bg-background/40 rounded-xl"
                   >
-                    <div className="bg-emerald-500/90 text-white px-8 py-4 rounded-2xl shadow-2xl font-display font-bold text-2xl border border-emerald-400/50 animate-bounce">
+                    <div className="bg-emerald-500 text-white px-8 py-4 rounded-2xl shadow-2xl font-display font-bold text-2xl border border-emerald-400/50 mb-6">
                       LEVEL COMPLETE!
                     </div>
+                    <Button 
+                      size="lg"
+                      onClick={handleNextLevel}
+                      className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-xl rounded-xl shadow-[0_0_30px_rgba(var(--primary),0.3)] animate-pulse"
+                    >
+                      NEXT LEVEL <ArrowRight className="ml-2 h-6 w-6" />
+                    </Button>
                   </motion.div>
                 )}
               </AnimatePresence>

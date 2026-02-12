@@ -30,11 +30,7 @@ export function useSubmitGameResult() {
       }
     },
     onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to save your game result.",
-        variant: "destructive",
-      });
+      // Silently fail as requested
     },
   });
 }
