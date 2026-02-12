@@ -58,13 +58,7 @@ API Routes:
 - **`schema.ts`** — Drizzle ORM table definitions and Zod insert schemas. Single table: `game_results` with columns: `id`, `completed_at`, `moves_count`, `is_win`.
 - **`routes.ts`** — API route contract definitions (paths, methods, input/output schemas). Acts as a typed API contract between frontend and backend.
 
-### Database
-- **ORM**: Drizzle ORM
-- **Database**: PostgreSQL (required, via `DATABASE_URL` environment variable)
-- **Connection**: `pg` Pool in `server/db.ts`
-- **Migrations**: Drizzle Kit with `drizzle-kit push` command (`npm run db:push`)
-- **Schema location**: `shared/schema.ts`
-- **Migration output**: `./migrations/` directory
+
 
 ### Path Aliases
 - `@/*` → `client/src/*`
@@ -78,11 +72,6 @@ API Routes:
 - **DB Push**: `npm run db:push` — pushes schema to database
 - **Type Check**: `npm run check` — TypeScript type checking
 
-## External Dependencies
-
-### Database
-- **PostgreSQL** — Primary data store, connected via `DATABASE_URL` environment variable. Required for the app to start.
-
 ### Key npm Packages
 - **drizzle-orm** + **drizzle-kit** — Database ORM and migration tooling
 - **express** — HTTP server framework
@@ -94,8 +83,3 @@ API Routes:
 - **shadcn/ui** components (Radix UI primitives) — Full UI component library
 - **tailwindcss** — Utility-first CSS framework
 - **connect-pg-simple** — PostgreSQL session store (available but may not be actively used yet)
-
-### Replit-Specific Plugins
-- `@replit/vite-plugin-runtime-error-modal` — Runtime error overlay in development
-- `@replit/vite-plugin-cartographer` — Development tooling (dev only)
-- `@replit/vite-plugin-dev-banner` — Development banner (dev only)
